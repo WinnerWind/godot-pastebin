@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cnqyjk87iobqe"]
 
 [ext_resource type="Script" uid="uid://s6ylg6vjm5ue" path="res://Scripts/main_ui.gd" id="1_bo1nx"]
-[ext_resource type="Script" uid="uid://b3sc42g0tqal5" path="res://Scripts/pastebin.gd" id="1_jjgbg"]
+[ext_resource type="Script" uid="uid://c1asys4gpvmsu" path="res://Scripts/pastebin_internet.gd" id="2_bo1nx"]
 
 [node name="Main UI" type="VBoxContainer" node_paths=PackedStringArray("content_entry")]
 anchors_preset = 15
@@ -14,8 +14,8 @@ content_entry = NodePath("Paste Content Entry")
 
 [node name="Backend" type="Node" parent="."]
 unique_name_in_owner = true
-script = ExtResource("1_jjgbg")
-paste_name_algorithm = 8
+script = ExtResource("2_bo1nx")
+paste_name_algorithm = 2
 
 [node name="HTTPRequest" type="HTTPRequest" parent="Backend"]
 

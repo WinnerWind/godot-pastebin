@@ -1,40 +1,21 @@
 extends Node
-class_name PastebinBackend
+class_name PastebinNetworkBackend
 
 # signals
 signal paste_complete
 signal out_of_filenames
 
 @export_dir var export_path = "user://"
-enum NewPasteAlgorithms {DECIMAL, DECIMAL_SEQUENTIAL,HEXADECIMAL,HEXADECIMAL_SEQUENTIAL,ALPHABET,ALPHABET_SEQUENTIAL,BASE64,BASE64_SEQUENTIAL,WORD_BASED}
+enum NewPasteAlgorithms {DECIMAL, HEXADECIMAL,ALPHABET,BASE64,WORD_BASED}
 @export var paste_name_algorithm:NewPasteAlgorithms
-@export var paste_name_length:int = 5
+@export_range(5,10) var paste_name_length:int = 5
 
+var cached_content:String
+var disallowed_names:Array[String] = []
 func create_new_paste(content:String):
+	cached_content = content
 	var paste_name:String = ""
 	match paste_name_algorithm:
-		#region Sequential Functions
-		NewPasteAlgorithms.DECIMAL_SEQUENTIAL:
-			var current_iteration:int = 0
-			while file_exists("%d.html"%current_iteration):
-				current_iteration += 1
-			paste_name = "%d"%current_iteration
-		NewPasteAlgorithms.HEXADECIMAL_SEQUENTIAL:
-			var current_iteration:int = 0
-			while file_exists("%x.html"%current_iteration):
-				current_iteration += 1
-			paste_name = "%x"%current_iteration
-		NewPasteAlgorithms.ALPHABET_SEQUENTIAL:
-			var current_iteration:int = 0
-			while file_exists("%s.html"%get_alphabet_from_number(current_iteration)):
-				current_iteration += 1
-			paste_name = get_alphabet_from_number(current_iteration)
-		NewPasteAlgorithms.BASE64_SEQUENTIAL:
-			var current_iteration:int = 0
-			while file_exists("%s.html"%get_base64_from_number(current_iteration)):
-				current_iteration += 1
-			paste_name = get_base64_from_number(current_iteration)
-		#endregion
 		#region Randomized Functions
 		NewPasteAlgorithms.DECIMAL:
 			#Returns random number between 1 and largest possible pastenamelength digit number
@@ -120,9 +101,27 @@ func create_new_paste(content:String):
 					paste_name = ""
 					tries -=1 
 		#endregion
-	var file = FileAccess.open(export_path+paste_name+".html", FileAccess.WRITE) #Store file in export path
-	file.store_string(content)
+	send_file(content,paste_name)
+	
+	
 	paste_complete.emit()
+
+func send_file(content:String,filename:String):
+	var url = "http://api.winnerwind.in/pastebin" #Replace this when necessary.
+	var body = {"content": content, "filename":filename}
+	var headers = ["Content-Type: application/json"]
+	$HTTPRequest.connect("request_completed", _on_request_completed)
+	var err = $HTTPRequest.request(url,headers,HTTPClient.METHOD_POST,JSON.stringify(body))
+	if err != OK:
+		print("Request error: ", err)
+
+func _on_request_completed(_result, _response_code, headers, body):
+	var response = JSON.parse_string(body.get_string_from_utf8())
+	print("Server response: "+str(response))
+	if response.keys().has("error"):
+		if response.error == "File exists!": #Retry with a different randomization.
+			disallowed_names.append(response.filename)
+			create_new_paste(cached_content)
 
 #region Helper Functions
 # Some helper functions
