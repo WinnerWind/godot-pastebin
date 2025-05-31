@@ -1,15 +1,29 @@
-[gd_scene load_steps=2 format=3 uid="uid://cnqyjk87iobqe"]
+[gd_scene load_steps=3 format=3 uid="uid://cnqyjk87iobqe"]
 
+[ext_resource type="Script" uid="uid://s6ylg6vjm5ue" path="res://Scripts/main_ui.gd" id="1_bo1nx"]
 [ext_resource type="Script" uid="uid://b3sc42g0tqal5" path="res://Scripts/pastebin.gd" id="1_jjgbg"]
 
-[node name="Main UI" type="Control"]
-layout_mode = 3
+[node name="Main UI" type="VBoxContainer" node_paths=PackedStringArray("content_entry")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_bo1nx")
+content_entry = NodePath("Paste Content Entry")
 
 [node name="Backend" type="Node" parent="."]
+unique_name_in_owner = true
 script = ExtResource("1_jjgbg")
 paste_name_algorithm = 8
+
+[node name="Paste Content Entry" type="TextEdit" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+placeholder_text = "Paste Content"
+
+[node name="Submit Button" type="Button" parent="."]
+layout_mode = 2
+text = "Submit"
+
+[connection signal="pressed" from="Submit Button" to="." method="_submit_pressed"]

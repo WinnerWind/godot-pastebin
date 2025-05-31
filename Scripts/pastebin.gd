@@ -9,12 +9,9 @@ signal out_of_filenames
 enum NewPasteAlgorithms {DECIMAL, DECIMAL_SEQUENTIAL,HEXADECIMAL,HEXADECIMAL_SEQUENTIAL,ALPHABET,ALPHABET_SEQUENTIAL,BASE64,BASE64_SEQUENTIAL,WORD_BASED}
 @export var paste_name_algorithm:NewPasteAlgorithms
 @export var paste_name_length:int = 5
-func _ready() -> void:
-	for i in 16:
-		create_new_paste("Among us sus!")
-	get_tree().root.queue_free()
 
-func create_new_paste(content:String, paste_name:String = ""):
+func create_new_paste(content:String):
+	var paste_name:String = ""
 	match paste_name_algorithm:
 		#region Sequential Functions
 		NewPasteAlgorithms.DECIMAL_SEQUENTIAL:
