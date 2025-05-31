@@ -4,105 +4,47 @@ class_name PastebinNetworkBackend
 # signals
 signal paste_complete
 signal out_of_filenames
+signal send_prompt(content:String)
 
-@export_dir var export_path = "user://"
 enum NewPasteAlgorithms {DECIMAL, HEXADECIMAL,ALPHABET,BASE64,WORD_BASED}
 @export var paste_name_algorithm:NewPasteAlgorithms
-@export_range(5,10) var paste_name_length:int = 5
+@export_range(3,10) var paste_name_length:int = 5
 
 var cached_content:String
 var disallowed_names:Array[String] = []
+var custom_paste_name:String
 func create_new_paste(content:String):
 	cached_content = content
 	var paste_name:String = ""
-	match paste_name_algorithm:
-		#region Randomized Functions
-		NewPasteAlgorithms.DECIMAL:
-			#Returns random number between 1 and largest possible pastenamelength digit number
-			var found_working_filename:bool = false #Stores whether we have found a working filename or not.
-			var tries:int = 1000
-			while not found_working_filename:
+	if not custom_paste_name: match paste_name_algorithm:
+			NewPasteAlgorithms.DECIMAL:
+				#Returns random number between 1 and largest possible pastenamelength digit number
 				var max_possible_number = (10**(paste_name_length)) - 1
 				var random_number = randi_range(1,max_possible_number)
-				if tries <= 0:
-					push_error("Couldn't find a working filename.")
-					out_of_filenames.emit()
-					return
-				if not file_exists("%s.html"%random_number):
-					paste_name = str(random_number)
-					break
-				else:
-					tries -= 1
-		NewPasteAlgorithms.HEXADECIMAL:
-			var found_working_filename:bool = false #Stores whether we have found a working filename or not.
-			var tries:int = 1000
-			while not found_working_filename:
-				# 16 cause hex
-				var max_possible_number = (16**(paste_name_length)) - 1
+				paste_name = str(random_number)
+			NewPasteAlgorithms.HEXADECIMAL:
+				var max_possible_number = (10**(paste_name_length)) - 1
 				var random_number = randi_range(1,max_possible_number)
-				if tries <= 0:
-					push_error("Couldn't find a working filename.")
-					out_of_filenames.emit()
-					return
-				if not file_exists("%x.html"%random_number):
-					paste_name = "%x"%random_number
-					break
-				else:
-					tries -= 1
-		NewPasteAlgorithms.ALPHABET:
-			var found_working_filename:bool = false #Stores whether we have found a working filename or not.
-			var tries:int = 1000
-			while not found_working_filename:
+				paste_name = "%x"%random_number
+			NewPasteAlgorithms.ALPHABET:
 				# 26 cause alphabet
 				var max_possible_number = (26**(paste_name_length)) - 1
 				var random_number = randi_range(1,max_possible_number)
-				if tries <= 0:
-					push_error("Couldn't find a working filename.")
-					out_of_filenames.emit()
-					return
-				if not file_exists("%s.html"%get_alphabet_from_number(random_number)):
-					paste_name = get_alphabet_from_number(random_number)
-					break
-				else:
-					tries -= 1
-		NewPasteAlgorithms.BASE64:
-			var found_working_filename:bool = false #Stores whether we have found a working filename or not.
-			var tries:int = 1000
-			while not found_working_filename:
+				paste_name = get_alphabet_from_number(random_number)
+			NewPasteAlgorithms.BASE64:
 				# you get the drill
 				var max_possible_number = (64**(paste_name_length)) - 1
 				var random_number = randi_range(1,max_possible_number)
-				if tries <= 0:
-					push_error("Couldn't find a working filename.")
-					out_of_filenames.emit()
-					return
-				if not file_exists("%s.html"%get_base64_from_number(random_number)):
-					paste_name = get_base64_from_number(random_number)
-					break
-				else:
-					tries -= 1
-		NewPasteAlgorithms.WORD_BASED:
-			var found_working_filename:bool = false
-			
-			var tries:int = 1000
-			while not found_working_filename:
-				if tries <= 0:
-					push_error("Couldn't find a working filename.")
-					out_of_filenames.emit()
-					return
-				
+				paste_name = get_base64_from_number(random_number)
+			NewPasteAlgorithms.WORD_BASED:
 				paste_name += get_random_word()
 				for index in paste_name_length-1: #We added one in the previous line
 					paste_name += "-"+get_random_word()
-				
-				if not file_exists("%s.html"%paste_name):
-					break
-				else:
-					paste_name = ""
-					tries -=1 
-		#endregion
+	else: #Custom paste name. Slugify.
+		paste_name = custom_paste_name
+		paste_name = paste_name.to_lower()
+		paste_name = paste_name.replace(" ","-")
 	send_file(content,paste_name)
-	
 	
 	paste_complete.emit()
 
@@ -110,7 +52,6 @@ func send_file(content:String,filename:String):
 	var url = "http://api.winnerwind.in/pastebin" #Replace this when necessary.
 	var body = {"content": content, "filename":filename}
 	var headers = ["Content-Type: application/json"]
-	$HTTPRequest.connect("request_completed", _on_request_completed)
 	var err = $HTTPRequest.request(url,headers,HTTPClient.METHOD_POST,JSON.stringify(body))
 	if err != OK:
 		print("Request error: ", err)
@@ -118,16 +59,14 @@ func send_file(content:String,filename:String):
 func _on_request_completed(_result, _response_code, headers, body):
 	var response = JSON.parse_string(body.get_string_from_utf8())
 	print("Server response: "+str(response))
+	send_prompt.emit(str(response))
 	if response.keys().has("error"):
 		if response.error == "File exists!": #Retry with a different randomization.
 			disallowed_names.append(response.filename)
 			create_new_paste(cached_content)
+	
 
 #region Helper Functions
-# Some helper functions
-func file_exists(filename:String) -> bool:
-	return FileAccess.file_exists(export_path+filename)
-
 func get_alphabet_from_number(number:int) -> String:
 	var result := ""
 	while number > 0:

@@ -1,32 +1,111 @@
-[gd_scene load_steps=3 format=3 uid="uid://cnqyjk87iobqe"]
+[gd_scene load_steps=5 format=3 uid="uid://cnqyjk87iobqe"]
 
 [ext_resource type="Script" uid="uid://s6ylg6vjm5ue" path="res://Scripts/main_ui.gd" id="1_bo1nx"]
 [ext_resource type="Script" uid="uid://c1asys4gpvmsu" path="res://Scripts/pastebin_internet.gd" id="2_bo1nx"]
+[ext_resource type="Script" uid="uid://x4w6gg7vm581" path="res://Scripts/top_row.gd" id="3_8gbba"]
+[ext_resource type="Script" uid="uid://b2dbnx4heao4y" path="res://Scripts/panel.gd" id="4_jjvhh"]
 
-[node name="Main UI" type="VBoxContainer" node_paths=PackedStringArray("content_entry")]
+[node name="Main UI" type="MarginContainer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_bo1nx")
-content_entry = NodePath("Paste Content Entry")
 
 [node name="Backend" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("2_bo1nx")
-paste_name_algorithm = 2
+paste_name_length = 3
 
 [node name="HTTPRequest" type="HTTPRequest" parent="Backend"]
 
-[node name="Paste Content Entry" type="TextEdit" parent="."]
+[node name="Main Sorter" type="VBoxContainer" parent="." node_paths=PackedStringArray("content_entry", "name_entry")]
+layout_mode = 2
+script = ExtResource("1_bo1nx")
+content_entry = NodePath("Paste Content Entry")
+name_entry = NodePath("Top Row/Custom Name")
+
+[node name="Top Row" type="HBoxContainer" parent="Main Sorter" node_paths=PackedStringArray("custom_name_bar", "name_presets_bar", "name_length_bar", "estimated_use_bar")]
+layout_mode = 2
+script = ExtResource("3_8gbba")
+custom_name_bar = NodePath("Custom Name")
+name_presets_bar = NodePath("Name Presets")
+name_length_bar = NodePath("Name Length")
+estimated_use_bar = NodePath("Estimated Use")
+
+[node name="Custom Name" type="LineEdit" parent="Main Sorter/Top Row"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Link Name"
+max_length = 30
+
+[node name="Name Presets" type="OptionButton" parent="Main Sorter/Top Row"]
+layout_mode = 2
+selected = 0
+item_count = 5
+popup/item_0/text = "Decimals"
+popup/item_0/id = 0
+popup/item_1/text = "Hexadecimals"
+popup/item_1/id = 1
+popup/item_2/text = "Base64"
+popup/item_2/id = 2
+popup/item_3/text = "Alphabets"
+popup/item_3/id = 4
+popup/item_4/text = "Words"
+popup/item_4/id = 3
+
+[node name="Name Length" type="SpinBox" parent="Main Sorter/Top Row"]
+layout_mode = 2
+min_value = 3.0
+max_value = 10.0
+value = 3.0
+suffix = "chr"
+
+[node name="Estimated Use" type="Label" parent="Main Sorter/Top Row"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.4
+text = "Max Pastes : 1024"
+
+[node name="Paste Content Entry" type="TextEdit" parent="Main Sorter"]
 layout_mode = 2
 size_flags_vertical = 3
-text = "aaaaaa"
 placeholder_text = "Paste Content"
 
-[node name="Submit Button" type="Button" parent="."]
+[node name="Submit Button" type="Button" parent="Main Sorter"]
 layout_mode = 2
 text = "Submit"
 
-[connection signal="pressed" from="Submit Button" to="." method="_submit_pressed"]
+[node name="Panels Margin" type="MarginContainer" parent="."]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Panel" type="Panel" parent="Panels Margin"]
+visible = false
+layout_mode = 2
+script = ExtResource("4_jjvhh")
+
+[node name="Sorter" type="VBoxContainer" parent="Panels Margin/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Content" type="RichTextLabel" parent="Panels Margin/Panel/Sorter"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Close" type="Button" parent="Panels Margin/Panel/Sorter"]
+layout_mode = 2
+text = "Close."
+
+[connection signal="send_prompt" from="Backend" to="Panels Margin/Panel" method="set_main_content"]
+[connection signal="request_completed" from="Backend/HTTPRequest" to="Backend" method="_on_request_completed"]
+[connection signal="text_changed" from="Main Sorter/Top Row/Custom Name" to="Main Sorter/Top Row" method="_on_custom_name_text_changed"]
+[connection signal="item_selected" from="Main Sorter/Top Row/Name Presets" to="Main Sorter/Top Row" method="_on_name_presets_item_selected"]
+[connection signal="value_changed" from="Main Sorter/Top Row/Name Length" to="Main Sorter/Top Row" method="_on_name_length_value_changed"]
+[connection signal="pressed" from="Main Sorter/Submit Button" to="Main Sorter" method="_submit_pressed"]
+[connection signal="pressed" from="Panels Margin/Panel/Sorter/Close" to="Panels Margin/Panel" method="hide"]
