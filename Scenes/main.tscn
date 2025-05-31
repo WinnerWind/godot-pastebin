@@ -10,6 +10,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Node" type="Node" parent="."]
+[node name="Backend" type="Node" parent="."]
 script = ExtResource("1_jjgbg")
-paste_name_algorithm = 2
+paste_name_algorithm = 8

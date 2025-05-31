@@ -95,8 +95,13 @@ func create_new_paste(content:String, paste_name:String = ""):
 					break
 				else:
 					tries -= 1
+		NewPasteAlgorithms.WORD_BASED:
+			paste_name += get_random_word()
+			for index in paste_name_length-1: #We added one in the previous line
+				paste_name += "-"+get_random_word()
 		#endregion
 	
+	print(paste_name)
 	var file = FileAccess.open(export_path+paste_name+".html", FileAccess.WRITE) #Store file in export path
 	file.store_string(content)
 
@@ -113,7 +118,7 @@ func get_alphabet_from_number(number:int) -> String:
 		number = number / 26
 	return result.to_lower()
 
-func get_base64_from_number(number:int, extended:bool = false):
+func get_base64_from_number(number:int):
 	var base64_chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_"
 	var result := ""
 	if number == 0:
@@ -123,3 +128,9 @@ func get_base64_from_number(number:int, extended:bool = false):
 		result = base64_chars[remainumberder] + result
 		number = number / 64
 	return result
+
+func get_random_word():
+	var file = FileAccess.open("res://Misc/words.txt",FileAccess.READ_WRITE)
+	var words:Array = Array(file.get_as_text().split("\n")).filter(func(t): return t)
+	return words.pick_random()
+	
