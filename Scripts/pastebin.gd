@@ -95,6 +95,7 @@ func create_new_paste(content:String, paste_name:String = ""):
 					break
 				else:
 					tries -= 1
+		#endregion
 	
 	var file = FileAccess.open(export_path+paste_name+".html", FileAccess.WRITE) #Store file in export path
 	file.store_string(content)
