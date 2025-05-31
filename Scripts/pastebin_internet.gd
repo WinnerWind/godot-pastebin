@@ -59,11 +59,14 @@ func send_file(content:String,filename:String):
 func _on_request_completed(_result, _response_code, headers, body):
 	var response = JSON.parse_string(body.get_string_from_utf8())
 	print("Server response: "+str(response))
-	send_prompt.emit(str(response))
-	if response.keys().has("error"):
-		if response.error == "File exists!": #Retry with a different randomization.
-			disallowed_names.append(response.filename)
-			create_new_paste(cached_content)
+	if not response == null:
+		send_prompt.emit(response)
+		if response.keys().has("error"):
+			if response.error == "File exists!": #Retry with a different randomization.
+				disallowed_names.append(response.filename)
+				create_new_paste(cached_content)
+	else:
+		send_prompt.emit({"code":-1})
 	
 
 #region Helper Functions
