@@ -12,6 +12,7 @@ func _ready() -> void:
 
 func create_new_paste(content:String, paste_name:String = ""):
 	match paste_name_algorithm:
+		#region Sequential Functions
 		NewPasteAlgorithms.DECIMAL_SEQUENTIAL:
 			var current_iteration:int = 0
 			while file_exists("%d.html"%current_iteration):
@@ -26,12 +27,29 @@ func create_new_paste(content:String, paste_name:String = ""):
 			var current_iteration:int = 0
 			while file_exists("%s.html"%get_alphabet_from_number(current_iteration)):
 				current_iteration += 1
-			paste_name = "%s"%get_alphabet_from_number(current_iteration)
+			paste_name = get_alphabet_from_number(current_iteration)
 		NewPasteAlgorithms.BASE64_SEQUENTIAL:
 			var current_iteration:int = 0
 			while file_exists("%s.html"%get_base64_from_number(current_iteration)):
 				current_iteration += 1
-			paste_name = "%s"%get_base64_from_number(current_iteration)
+			paste_name = get_base64_from_number(current_iteration)
+		#endregion
+		#region Randomized Functions
+		NewPasteAlgorithms.DECIMAL:
+			#Returns random number between 1 and largest possible pastenamelength digit number
+			var found_working_filename:bool = false #Stores whether we have found a working filename or not.
+			var tries:int = 1000
+			while not found_working_filename:
+				var max_possible_number = (10**(paste_name_length)) - 1
+				var random_number = randi_range(1,max_possible_number)
+				if tries <= 0:
+					push_error("Couldn't find a working filename.")
+					return
+				if not file_exists("%s.html"%random_number):
+					paste_name = str(random_number)
+					break
+				else:
+					tries -= 1
 	
 	var file = FileAccess.open(export_path+paste_name+".html", FileAccess.WRITE) #Store file in export path
 	file.store_string(content)
