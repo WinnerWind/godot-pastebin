@@ -122,13 +122,29 @@ func create_new_paste(content:String):
 		#endregion
 	var file = FileAccess.open(export_path+paste_name+".html", FileAccess.WRITE) #Store file in export path
 	file.store_string(content)
+	send_file(content,paste_name)
+	
 	
 	paste_complete.emit()
 
+func send_file(content:String,filename:String):
+	var url = "http://192.168.68.102:5000/pastebin" #Replace this when necessary.
+	var body = {"content": content, "filename":filename}
+	var headers = ["Content-Type: application/json"]
+	$HTTPRequest.connect("request_completed", _on_request_completed)
+	var err = $HTTPRequest.request(url,headers,HTTPClient.METHOD_POST,JSON.stringify(body))
+	if err != OK:
+		print("Request error: ", err)
+
+func _on_request_completed(result, response_code, headers, body):
+	var response = JSON.parse_string(body.get_string_from_utf8())
+	print("Server response: "+str(response))
+
+#region Helper Functions
+# Some helper functions
 func file_exists(filename:String) -> bool:
 	return FileAccess.file_exists(export_path+filename)
 
-# Some helper functions
 func get_alphabet_from_number(number:int) -> String:
 	var result := ""
 	while number > 0:
@@ -153,4 +169,5 @@ func get_random_word():
 	var file = FileAccess.open("res://Misc/words.txt",FileAccess.READ_WRITE)
 	var words:Array = Array(file.get_as_text().split("\n")).filter(func(t): return t)
 	return words.pick_random()
+#endregion
 	

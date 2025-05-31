@@ -17,9 +17,12 @@ unique_name_in_owner = true
 script = ExtResource("1_jjgbg")
 paste_name_algorithm = 8
 
+[node name="HTTPRequest" type="HTTPRequest" parent="Backend"]
+
 [node name="Paste Content Entry" type="TextEdit" parent="."]
 layout_mode = 2
 size_flags_vertical = 3
+text = "aaaaaa"
 placeholder_text = "Paste Content"
 
 [node name="Submit Button" type="Button" parent="."]
