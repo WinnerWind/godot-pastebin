@@ -12,5 +12,4 @@ grow_vertical = 2
 
 [node name="Node" type="Node" parent="."]
 script = ExtResource("1_jjgbg")
-paste_name_algorithm = 1
-paste_name_length = 1
+paste_name_algorithm = 2

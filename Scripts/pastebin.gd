@@ -2,7 +2,7 @@ extends Node
 class_name PastebinBackend
 
 @export_dir var export_path = "user://"
-enum NewPasteAlgorithms {DECIMAL_SEQUENTIAL,DECIMAL,HEXADECIMAL_SEQUENTIAL,ALPHABET,ALPHABET_SEQUENTIAL,BASE64,BASE64_SEQUENTIAL,WORD_BASED}
+enum NewPasteAlgorithms {DECIMAL, DECIMAL_SEQUENTIAL,HEXADECIMAL,HEXADECIMAL_SEQUENTIAL,ALPHABET,ALPHABET_SEQUENTIAL,BASE64,BASE64_SEQUENTIAL,WORD_BASED}
 @export var paste_name_algorithm:NewPasteAlgorithms
 @export var paste_name_length:int = 5
 func _ready() -> void:
@@ -47,6 +47,20 @@ func create_new_paste(content:String, paste_name:String = ""):
 					return
 				if not file_exists("%s.html"%random_number):
 					paste_name = str(random_number)
+					break
+				else:
+					tries -= 1
+		NewPasteAlgorithms.HEXADECIMAL:
+			var found_working_filename:bool = false #Stores whether we have found a working filename or not.
+			var tries:int = 1000
+			while not found_working_filename:
+				var max_possible_number = (16**(paste_name_length)) - 1
+				var random_number = randi_range(1,max_possible_number)
+				if tries <= 0:
+					push_error("Couldn't find a working filename.")
+					return
+				if not file_exists("%x.html"%random_number):
+					paste_name = "%x"%random_number
 					break
 				else:
 					tries -= 1
