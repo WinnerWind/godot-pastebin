@@ -81,7 +81,20 @@ func create_new_paste(content:String, paste_name:String = ""):
 				else:
 					tries -= 1
 		NewPasteAlgorithms.BASE64:
-			pass
+			var found_working_filename:bool = false #Stores whether we have found a working filename or not.
+			var tries:int = 1000
+			while not found_working_filename:
+				# you get the drill
+				var max_possible_number = (64**(paste_name_length)) - 1
+				var random_number = randi_range(1,max_possible_number)
+				if tries <= 0:
+					push_error("Couldn't find a working filename.")
+					return
+				if not file_exists("%s.html"%get_base64_from_number(random_number)):
+					paste_name = get_base64_from_number(random_number)
+					break
+				else:
+					tries -= 1
 	
 	var file = FileAccess.open(export_path+paste_name+".html", FileAccess.WRITE) #Store file in export path
 	file.store_string(content)
