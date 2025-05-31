@@ -1,9 +1,14 @@
-[gd_scene format=3 uid="uid://cnqyjk87iobqe"]
+[gd_scene load_steps=2 format=3 uid="uid://cnqyjk87iobqe"]
 
-[node name="Control" type="Control"]
+[ext_resource type="Script" uid="uid://b3sc42g0tqal5" path="res://Scripts/pastebin.gd" id="1_jjgbg"]
+
+[node name="Main UI" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Node" type="Node" parent="."]
+script = ExtResource("1_jjgbg")
