@@ -3,7 +3,6 @@ class_name PastebinBackend
 
 # signals
 signal paste_complete
-signal paste_failed
 signal out_of_filenames
 
 @export_dir var export_path = "user://"
@@ -126,6 +125,8 @@ func create_new_paste(content:String, paste_name:String = ""):
 		#endregion
 	var file = FileAccess.open(export_path+paste_name+".html", FileAccess.WRITE) #Store file in export path
 	file.store_string(content)
+	
+	paste_complete.emit()
 
 func file_exists(filename:String) -> bool:
 	return FileAccess.file_exists(export_path+filename)
