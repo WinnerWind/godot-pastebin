@@ -1,6 +1,11 @@
 extends Node
 class_name PastebinBackend
 
+# signals
+signal paste_complete
+signal paste_failed
+signal out_of_filenames
+
 @export_dir var export_path = "user://"
 enum NewPasteAlgorithms {DECIMAL, DECIMAL_SEQUENTIAL,HEXADECIMAL,HEXADECIMAL_SEQUENTIAL,ALPHABET,ALPHABET_SEQUENTIAL,BASE64,BASE64_SEQUENTIAL,WORD_BASED}
 @export var paste_name_algorithm:NewPasteAlgorithms
@@ -44,6 +49,7 @@ func create_new_paste(content:String, paste_name:String = ""):
 				var random_number = randi_range(1,max_possible_number)
 				if tries <= 0:
 					push_error("Couldn't find a working filename.")
+					out_of_filenames.emit()
 					return
 				if not file_exists("%s.html"%random_number):
 					paste_name = str(random_number)
@@ -59,6 +65,7 @@ func create_new_paste(content:String, paste_name:String = ""):
 				var random_number = randi_range(1,max_possible_number)
 				if tries <= 0:
 					push_error("Couldn't find a working filename.")
+					out_of_filenames.emit()
 					return
 				if not file_exists("%x.html"%random_number):
 					paste_name = "%x"%random_number
@@ -74,6 +81,7 @@ func create_new_paste(content:String, paste_name:String = ""):
 				var random_number = randi_range(1,max_possible_number)
 				if tries <= 0:
 					push_error("Couldn't find a working filename.")
+					out_of_filenames.emit()
 					return
 				if not file_exists("%s.html"%get_alphabet_from_number(random_number)):
 					paste_name = get_alphabet_from_number(random_number)
@@ -89,6 +97,7 @@ func create_new_paste(content:String, paste_name:String = ""):
 				var random_number = randi_range(1,max_possible_number)
 				if tries <= 0:
 					push_error("Couldn't find a working filename.")
+					out_of_filenames.emit()
 					return
 				if not file_exists("%s.html"%get_base64_from_number(random_number)):
 					paste_name = get_base64_from_number(random_number)
@@ -96,9 +105,24 @@ func create_new_paste(content:String, paste_name:String = ""):
 				else:
 					tries -= 1
 		NewPasteAlgorithms.WORD_BASED:
-			paste_name += get_random_word()
-			for index in paste_name_length-1: #We added one in the previous line
-				paste_name += "-"+get_random_word()
+			var found_working_filename:bool = false
+			
+			var tries:int = 1000
+			while not found_working_filename:
+				if tries <= 0:
+					push_error("Couldn't find a working filename.")
+					out_of_filenames.emit()
+					return
+				
+				paste_name += get_random_word()
+				for index in paste_name_length-1: #We added one in the previous line
+					paste_name += "-"+get_random_word()
+				
+				if not file_exists("%s.html"%paste_name):
+					break
+				else:
+					paste_name = ""
+					tries -=1 
 		#endregion
 	var file = FileAccess.open(export_path+paste_name+".html", FileAccess.WRITE) #Store file in export path
 	file.store_string(content)
