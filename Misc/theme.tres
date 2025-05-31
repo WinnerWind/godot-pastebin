@@ -1,0 +1,12 @@
+[gd_resource type="Theme" format=3 uid="uid://beukarelgly6a"]
+
+[resource]
+MarginContainer/constants/margin_bottom = 20
+MarginContainer/constants/margin_left = 20
+MarginContainer/constants/margin_right = 20
+MarginContainer/constants/margin_top = 20
+PanelMargins/base_type = &"MarginContainer"
+PanelMargins/constants/margin_bottom = 130
+PanelMargins/constants/margin_left = 150
+PanelMargins/constants/margin_right = 150
+PanelMargins/constants/margin_top = 130

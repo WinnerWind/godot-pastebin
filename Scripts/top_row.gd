@@ -27,6 +27,7 @@ func _on_name_presets_item_selected(index: int) -> void:
 
 func _on_name_length_value_changed(value: float) -> void:
 	backend_name_length = int(value)
+	%Backend.paste_name_length = int(value)
 	calculate_estimated_uses()
 
 func _on_custom_name_text_changed(new_text: String) -> void:

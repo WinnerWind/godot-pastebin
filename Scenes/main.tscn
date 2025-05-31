@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://cnqyjk87iobqe"]
+[gd_scene load_steps=6 format=3 uid="uid://cnqyjk87iobqe"]
 
 [ext_resource type="Script" uid="uid://s6ylg6vjm5ue" path="res://Scripts/main_ui.gd" id="1_bo1nx"]
+[ext_resource type="Theme" uid="uid://beukarelgly6a" path="res://Misc/theme.tres" id="1_kry3j"]
 [ext_resource type="Script" uid="uid://c1asys4gpvmsu" path="res://Scripts/pastebin_internet.gd" id="2_bo1nx"]
 [ext_resource type="Script" uid="uid://x4w6gg7vm581" path="res://Scripts/top_row.gd" id="3_8gbba"]
 [ext_resource type="Script" uid="uid://b2dbnx4heao4y" path="res://Scripts/panel.gd" id="4_jjvhh"]
@@ -11,6 +12,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_kry3j")
 
 [node name="Backend" type="Node" parent="."]
 unique_name_in_owner = true
@@ -80,11 +82,25 @@ text = "Submit"
 [node name="Panels Margin" type="MarginContainer" parent="."]
 layout_mode = 2
 mouse_filter = 2
+theme_type_variation = &"PanelMargins"
 
 [node name="Panel" type="Panel" parent="Panels Margin"]
 visible = false
 layout_mode = 2
 script = ExtResource("4_jjvhh")
+offline_error = "No response from server. Is it offline?"
+success_notice = "Pastebin has been successfully pasted!
+
+Go to [url]https://{link}[/url]"
+no_content_error = "You cannot start a pastebin with no content."
+no_filename_error = "You haven't specified a paste name. This is most likely a bug."
+filename_short_error = "Paste name  was too short. It must be at least 3 characters."
+content_too_big = "Your content was too big. Keep it below 1 million characters."
+unknown_error = "We ran into an unknown error."
+footer = "Filename : \"{filename}\"
+Error : \"{error}\"
+Status: \"{status}\"
+Code: \"{code}\""
 
 [node name="Sorter" type="VBoxContainer" parent="Panels Margin/Panel"]
 layout_mode = 1
@@ -97,6 +113,7 @@ grow_vertical = 2
 [node name="Content" type="RichTextLabel" parent="Panels Margin/Panel/Sorter"]
 layout_mode = 2
 size_flags_vertical = 3
+bbcode_enabled = true
 
 [node name="Close" type="Button" parent="Panels Margin/Panel/Sorter"]
 layout_mode = 2
@@ -108,4 +125,5 @@ text = "Close."
 [connection signal="item_selected" from="Main Sorter/Top Row/Name Presets" to="Main Sorter/Top Row" method="_on_name_presets_item_selected"]
 [connection signal="value_changed" from="Main Sorter/Top Row/Name Length" to="Main Sorter/Top Row" method="_on_name_length_value_changed"]
 [connection signal="pressed" from="Main Sorter/Submit Button" to="Main Sorter" method="_submit_pressed"]
+[connection signal="meta_clicked" from="Panels Margin/Panel/Sorter/Content" to="Panels Margin/Panel" method="_on_content_meta_clicked"]
 [connection signal="pressed" from="Panels Margin/Panel/Sorter/Close" to="Panels Margin/Panel" method="hide"]
