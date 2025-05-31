@@ -100,8 +100,6 @@ func create_new_paste(content:String, paste_name:String = ""):
 			for index in paste_name_length-1: #We added one in the previous line
 				paste_name += "-"+get_random_word()
 		#endregion
-	
-	print(paste_name)
 	var file = FileAccess.open(export_path+paste_name+".html", FileAccess.WRITE) #Store file in export path
 	file.store_string(content)
 
