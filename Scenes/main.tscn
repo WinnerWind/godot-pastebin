@@ -1,11 +1,14 @@
-[gd_scene load_steps=9 format=3 uid="uid://cnqyjk87iobqe"]
+[gd_scene load_steps=12 format=3 uid="uid://cnqyjk87iobqe"]
 
 [ext_resource type="Script" uid="uid://s6ylg6vjm5ue" path="res://Scripts/main_ui.gd" id="1_bo1nx"]
 [ext_resource type="Theme" uid="uid://colchl8clxybo" path="res://Misc/theme_dark.tres" id="1_kry3j"]
 [ext_resource type="Script" uid="uid://c1asys4gpvmsu" path="res://Scripts/pastebin_internet.gd" id="2_bo1nx"]
+[ext_resource type="Script" uid="uid://d0qqcskgybm1c" path="res://Scripts/BG.gd" id="2_hptm8"]
 [ext_resource type="Script" uid="uid://x4w6gg7vm581" path="res://Scripts/top_row.gd" id="3_8gbba"]
+[ext_resource type="Theme" uid="uid://beukarelgly6a" path="res://Misc/theme.tres" id="3_d1ilt"]
 [ext_resource type="Script" uid="uid://b2dbnx4heao4y" path="res://Scripts/panel.gd" id="4_jjvhh"]
 [ext_resource type="Texture2D" uid="uid://wio2yhgfjdte" path="res://Misc/folder.svg" id="5_21xkr"]
+[ext_resource type="Script" uid="uid://ci5o0w5yg5c4s" path="res://Scenes/middle_row.gd" id="5_ynf5e"]
 [ext_resource type="Texture2D" uid="uid://wglcbfutvr0n" path="res://Misc/info.svg" id="6_344ge"]
 [ext_resource type="Texture2D" uid="uid://ci8xu6tae8sid" path="res://Misc/palette.svg" id="7_ynf5e"]
 
@@ -17,6 +20,9 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_kry3j")
 theme_type_variation = &"BGPanel"
+script = ExtResource("2_hptm8")
+light_theme = ExtResource("3_d1ilt")
+dark_theme = ExtResource("1_kry3j")
 
 [node name="Main UI" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -70,7 +76,7 @@ popup/item_4/id = 3
 [node name="Name Length" type="SpinBox" parent="Main UI/Main Sorter/Top Row"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.17
+size_flags_stretch_ratio = 0.27
 theme_type_variation = &"RightAnchoredLineEdit"
 min_value = 3.0
 max_value = 10.0
@@ -79,6 +85,7 @@ suffix = "chr"
 
 [node name="Middle Row" type="HBoxContainer" parent="Main UI/Main Sorter"]
 layout_mode = 2
+script = ExtResource("5_ynf5e")
 
 [node name="Manager" type="Button" parent="Main UI/Main Sorter/Middle Row"]
 layout_mode = 2
@@ -165,6 +172,7 @@ text = "Close."
 [connection signal="text_changed" from="Main UI/Main Sorter/Top Row/Custom Name" to="Main UI/Main Sorter/Top Row" method="_on_custom_name_text_changed"]
 [connection signal="item_selected" from="Main UI/Main Sorter/Top Row/Name Presets" to="Main UI/Main Sorter/Top Row" method="_on_name_presets_item_selected"]
 [connection signal="value_changed" from="Main UI/Main Sorter/Top Row/Name Length" to="Main UI/Main Sorter/Top Row" method="_on_name_length_value_changed"]
+[connection signal="pressed" from="Main UI/Main Sorter/Middle Row/Theme Toggle" to="Main UI/Main Sorter/Middle Row" method="_on_theme_toggle_pressed"]
 [connection signal="pressed" from="Main UI/Main Sorter/Submit Button" to="Main UI/Main Sorter" method="_submit_pressed"]
 [connection signal="meta_clicked" from="Panels Margin/Panel/MarginContainer/Sorter/Content" to="Panels Margin/Panel" method="_on_content_meta_clicked"]
 [connection signal="pressed" from="Panels Margin/Panel/MarginContainer/Sorter/Close" to="Panels Margin/Panel" method="hide"]
