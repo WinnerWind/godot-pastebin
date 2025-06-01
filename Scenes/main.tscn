@@ -8,7 +8,7 @@
 [ext_resource type="Theme" uid="uid://beukarelgly6a" path="res://Misc/theme.tres" id="3_d1ilt"]
 [ext_resource type="Script" uid="uid://b2dbnx4heao4y" path="res://Scripts/panel.gd" id="4_jjvhh"]
 [ext_resource type="Texture2D" uid="uid://wio2yhgfjdte" path="res://Misc/folder.svg" id="5_21xkr"]
-[ext_resource type="Script" uid="uid://ci5o0w5yg5c4s" path="res://Scenes/middle_row.gd" id="5_ynf5e"]
+[ext_resource type="Script" uid="uid://ci5o0w5yg5c4s" path="res://Scripts/middle_row.gd" id="5_ynf5e"]
 [ext_resource type="Texture2D" uid="uid://wglcbfutvr0n" path="res://Misc/info.svg" id="6_344ge"]
 [ext_resource type="Texture2D" uid="uid://ci8xu6tae8sid" path="res://Misc/palette.svg" id="7_ynf5e"]
 
@@ -122,6 +122,7 @@ mouse_filter = 2
 theme_type_variation = &"PanelMargins"
 
 [node name="Panel" type="Panel" parent="Panels Margin" node_paths=PackedStringArray("content_node")]
+visible = false
 layout_mode = 2
 script = ExtResource("4_jjvhh")
 content_node = NodePath("MarginContainer/Sorter/Content")
@@ -166,6 +167,42 @@ Code: \"{code}\"
 layout_mode = 2
 text = "Close."
 
+[node name="About Page" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_type_variation = &"PanelMargins"
+
+[node name="Panel" type="Panel" parent="About Page"]
+visible = false
+layout_mode = 2
+script = ExtResource("4_jjvhh")
+
+[node name="MarginContainer" type="MarginContainer" parent="About Page/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Sorter" type="VBoxContainer" parent="About Page/Panel/MarginContainer"]
+layout_mode = 2
+
+[node name="Content" type="RichTextLabel" parent="About Page/Panel/MarginContainer/Sorter"]
+layout_mode = 2
+size_flags_vertical = 3
+bbcode_enabled = true
+text = "TEXTHERE TEXTHERE TEXTHERE TEXTHERE"
+
+[node name="Close" type="Button" parent="About Page/Panel/MarginContainer/Sorter"]
+layout_mode = 2
+text = "Close."
+
 [connection signal="send_prompt" from="Main UI/Backend" to="Panels Margin/Panel" method="set_main_content"]
 [connection signal="request_completed" from="Main UI/Backend/HTTPRequest" to="Main UI/Backend" method="_on_request_completed"]
 [connection signal="text_changed" from="Main UI/Main Sorter/Top Row/Custom Name" to="Main UI/Main Sorter/Top Row" method="_on_custom_name_text_changed"]
@@ -175,3 +212,5 @@ text = "Close."
 [connection signal="pressed" from="Main UI/Main Sorter/Submit Button" to="Main UI/Main Sorter" method="_submit_pressed"]
 [connection signal="meta_clicked" from="Panels Margin/Panel/MarginContainer/Sorter/Content" to="Panels Margin/Panel" method="_on_content_meta_clicked"]
 [connection signal="pressed" from="Panels Margin/Panel/MarginContainer/Sorter/Close" to="Panels Margin/Panel" method="hide"]
+[connection signal="meta_clicked" from="About Page/Panel/MarginContainer/Sorter/Content" to="About Page/Panel" method="_on_content_meta_clicked"]
+[connection signal="pressed" from="About Page/Panel/MarginContainer/Sorter/Close" to="About Page/Panel" method="hide"]
