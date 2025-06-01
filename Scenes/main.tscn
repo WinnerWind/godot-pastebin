@@ -1,12 +1,15 @@
-[gd_scene load_steps=6 format=3 uid="uid://cnqyjk87iobqe"]
+[gd_scene load_steps=9 format=3 uid="uid://cnqyjk87iobqe"]
 
 [ext_resource type="Script" uid="uid://s6ylg6vjm5ue" path="res://Scripts/main_ui.gd" id="1_bo1nx"]
-[ext_resource type="Theme" uid="uid://beukarelgly6a" path="res://Misc/theme.tres" id="1_kry3j"]
+[ext_resource type="Theme" uid="uid://colchl8clxybo" path="res://Misc/theme_dark.tres" id="1_kry3j"]
 [ext_resource type="Script" uid="uid://c1asys4gpvmsu" path="res://Scripts/pastebin_internet.gd" id="2_bo1nx"]
 [ext_resource type="Script" uid="uid://x4w6gg7vm581" path="res://Scripts/top_row.gd" id="3_8gbba"]
 [ext_resource type="Script" uid="uid://b2dbnx4heao4y" path="res://Scripts/panel.gd" id="4_jjvhh"]
+[ext_resource type="Texture2D" uid="uid://wio2yhgfjdte" path="res://Misc/folder.svg" id="5_21xkr"]
+[ext_resource type="Texture2D" uid="uid://wglcbfutvr0n" path="res://Misc/info.svg" id="6_344ge"]
+[ext_resource type="Texture2D" uid="uid://ci8xu6tae8sid" path="res://Misc/palette.svg" id="7_ynf5e"]
 
-[node name="Main Panel" type="Panel"]
+[node name="BG" type="Panel"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -74,6 +77,24 @@ max_value = 10.0
 value = 3.0
 suffix = "chr"
 
+[node name="Middle Row" type="HBoxContainer" parent="Main UI/Main Sorter"]
+layout_mode = 2
+
+[node name="Manager" type="Button" parent="Main UI/Main Sorter/Middle Row"]
+layout_mode = 2
+text = "manager"
+icon = ExtResource("5_21xkr")
+
+[node name="About" type="Button" parent="Main UI/Main Sorter/Middle Row"]
+layout_mode = 2
+text = "about"
+icon = ExtResource("6_344ge")
+
+[node name="Theme Toggle" type="Button" parent="Main UI/Main Sorter/Middle Row"]
+layout_mode = 2
+text = "theme"
+icon = ExtResource("7_ynf5e")
+
 [node name="Paste Content Entry" type="TextEdit" parent="Main UI/Main Sorter"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -84,6 +105,7 @@ layout_mode = 2
 text = "Submit"
 
 [node name="Panels Margin" type="MarginContainer" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -93,9 +115,10 @@ grow_vertical = 2
 mouse_filter = 2
 theme_type_variation = &"PanelMargins"
 
-[node name="Panel" type="Panel" parent="Panels Margin"]
+[node name="Panel" type="Panel" parent="Panels Margin" node_paths=PackedStringArray("content_node")]
 layout_mode = 2
 script = ExtResource("4_jjvhh")
+content_node = NodePath("MarginContainer/Sorter/Content")
 offline_error = "No response from server. Is it offline?"
 success_notice = "Pastebin has been successfully pasted!
 

@@ -1,6 +1,8 @@
 extends Panel
 class_name NotificationPanel
 
+@export var content_node:RichTextLabel
+
 @export_multiline var offline_error:String
 @export_multiline var success_notice:String
 @export_multiline var no_content_error:String
@@ -9,6 +11,7 @@ class_name NotificationPanel
 @export_multiline var content_too_big:String
 @export_multiline var unknown_error:String
 @export_multiline var footer:String
+
 
 var main_content:String:
 	set(new_content):
