@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://icc30dsd8rxl"
-path="res://.godot/imported/VictorMono-VariableFont_wght.ttf-02fa741b63297772b4d52cb6d0e21b37.fontdata"
+path="res://.godot/imported/VictorMono-VariableFont_wght.ttf-b7955564a6c2ef160563c4f787e9be41.fontdata"
 
 [deps]
 
-source_file="res://Misc/VictorMono-VariableFont_wght.ttf"
-dest_files=["res://.godot/imported/VictorMono-VariableFont_wght.ttf-02fa741b63297772b4d52cb6d0e21b37.fontdata"]
+source_file="res://Misc/Fonts/VictorMono-VariableFont_wght.ttf"
+dest_files=["res://.godot/imported/VictorMono-VariableFont_wght.ttf-b7955564a6c2ef160563c4f787e9be41.fontdata"]
 
 [params]
 

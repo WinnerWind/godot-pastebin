@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://jcl3sqxkhfwh"
-path="res://.godot/imported/VictorMono-Bold.ttf-9ab1ed00bb646178a623a78e269ad9f3.fontdata"
+path="res://.godot/imported/VictorMono-Bold.ttf-ae949e52f0d5a21560cefdfcb107acc9.fontdata"
 
 [deps]
 
-source_file="res://Misc/VictorMono-Bold.ttf"
-dest_files=["res://.godot/imported/VictorMono-Bold.ttf-9ab1ed00bb646178a623a78e269ad9f3.fontdata"]
+source_file="res://Misc/Fonts/VictorMono-Bold.ttf"
+dest_files=["res://.godot/imported/VictorMono-Bold.ttf-ae949e52f0d5a21560cefdfcb107acc9.fontdata"]
 
 [params]
 

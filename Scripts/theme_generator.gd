@@ -17,8 +17,13 @@ class_name ThemeGenerator
 @export var font_color:Color
 @export var font_color_placeholder:Color
 
+@export_subgroup("Fonts")
+@export var main_font:Font
+
 func generate_theme():
 	output_theme = theme_baseplate
+	
+	# Main Colors
 	change_theme_item(&"panel",&"BGPanel",&"bg_color",bg_color)
 	
 	change_theme_item(&"focus",&"LineEdit",&"bg_color",fg_focus_color)
@@ -66,6 +71,12 @@ func generate_theme():
 	change_theme_color(&"font_color",&"TextEdit",font_color)
 	change_theme_color(&"font_placeholder_color",&"TextEdit",font_color)
 	
+	# Fonts
+	change_theme_font(&"font",&"LineEdit",main_font)
+	change_theme_font(&"font",&"PopupMenu",main_font)
+	change_theme_font(&"normal_font",&"RichTextLabel",main_font)
+	change_theme_font(&"font",&"TextEdit",main_font)
+	
 	output_theme.resource_path = ""
 	output_theme.resource_name = "Theme Customized"
 	
@@ -76,3 +87,6 @@ func change_theme_item(item_name:StringName,type_name:StringName,variable_to_cha
 
 func change_theme_color(item_name:StringName,type_name:StringName,value:Color):
 	output_theme.set_theme_item(Theme.DATA_TYPE_COLOR,item_name,type_name,value)
+
+func change_theme_font(item_name:StringName,type_name:StringName,value:Font):
+	output_theme.set_theme_item(Theme.DATA_TYPE_FONT,item_name,type_name,value)
