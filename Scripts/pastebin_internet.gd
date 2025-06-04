@@ -61,7 +61,6 @@ func create_new_paste(content:String):
 
 func send_file(content:String,filename:String):
 	var file = FileAccess.open("res://secrets/url.txt",FileAccess.READ)
-	print(file.get_as_text().trim_suffix("\n"))
 	var url = file.get_as_text().trim_suffix("\n") #Replace this when necessary.
 	var body = {"content": content, "filename":filename, "is_link":is_link}
 	var headers = ["Content-Type: application/json"]
