@@ -1181,6 +1181,7 @@ corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 
 [resource]
+resource_name = "Theme Customized"
 BGPanel/base_type = &"Panel"
 BGPanel/styles/panel = SubResource("StyleBoxFlat_7svmp")
 BoxContainer/constants/separation = 8
