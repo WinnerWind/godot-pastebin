@@ -60,7 +60,8 @@ func create_new_paste(content:String):
 	paste_complete.emit()
 
 func send_file(content:String,filename:String):
-	var url = "http://api.winnerwind.in/pastebin" #Replace this when necessary.
+	var file = FileAccess.open("res://secrets/url.txt",FileAccess.WRITE_READ)
+	var url = file.get_as_text() #Replace this when necessary.
 	var body = {"content": content, "filename":filename, "is_link":is_link}
 	var headers = ["Content-Type: application/json"]
 	var err = $HTTPRequest.request(url,headers,HTTPClient.METHOD_POST,JSON.stringify(body))
