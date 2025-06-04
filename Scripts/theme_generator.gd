@@ -13,11 +13,12 @@ class_name ThemeGenerator
 @export var fg_focus_color:Color
 @export var popup_panel_bg_color:Color
 @export var popup_panel_border_color:Color
-@export var hover_color:Color
+@export var popup_menu_color:Color
 @export var font_color:Color
 @export var font_color_hover:Color
 @export var font_color_placeholder:Color
 @export var font_color_button:Color
+@export var font_color_button_pressed:Color
 @export var icon_color:Color
 @export var icon_color_spinbox:Color
 @export var icon_color_disabled:Color
@@ -39,13 +40,16 @@ class_name ThemeGenerator
 
 
 func generate_theme():
-	output_theme = theme_baseplate
+	output_theme = theme_baseplate.duplicate(true)
 	
 	# Main Colors
 	change_theme_item(&"panel",&"BGPanel",&"bg_color",bg_color)
 	
 	change_theme_item(&"focus",&"LineEdit",&"bg_color",fg_focus_color)
 	change_theme_item(&"normal",&"LineEdit",&"bg_color",fg_color)
+	
+	change_theme_item(&"focus",&"TextEdit",&"bg_color",fg_color)
+	change_theme_item(&"normal",&"TextEdit",&"bg_color",fg_color)
 	
 	# Buttons
 	change_theme_item(&"focus",&"OptionButton",&"bg_color",fg_focus_color)
@@ -60,7 +64,7 @@ func generate_theme():
 	# Popups
 	change_theme_item(&"panel",&"Panel",&"bg_color",popup_panel_bg_color)
 	change_theme_item(&"panel",&"Panel",&"border_color",popup_panel_border_color)
-	change_theme_item(&"hover",&"PopupMenu",&"bg_color",hover_color)
+	change_theme_item(&"hover",&"PopupMenu",&"bg_color",popup_menu_color)
 	change_theme_item(&"panel",&"PopupMenu",&"bg_color",fg_focus_color)
 	change_theme_item(&"panel",&"PopupMenu",&"border_color",accent_color)
 	# Spinbox
@@ -82,16 +86,20 @@ func generate_theme():
 	change_theme_color(&"font_color",&"LineEdit",font_color)
 	change_theme_color(&"font_color",&"Button",font_color_button)
 	change_theme_color(&"font_color",&"Button",font_color_button)
-	change_theme_color(&"font_hover_color",&"Button",font_color_hover)
-	change_theme_color(&"font_focus_color",&"Button",font_color)
+	change_theme_color(&"font_hover_color",&"Button",font_color_button_pressed)
+	change_theme_color(&"font_focus_color",&"Button",font_color_button_pressed)
 	change_theme_color(&"font_hover_pressed",&"Button",font_color_hover)
 	change_theme_color(&"font_color",&"OptionButton",font_color) #OptionButton may use different styling
+	change_theme_color(&"font_hover_color",&"OptionButton",font_color_hover)
+	change_theme_color(&"font_hover_pressed_color",&"OptionButton",font_color_hover)
+	change_theme_color(&"font_focus_color",&"OptionButton",font_color_hover)
 	change_theme_color(&"font_placeholder_color",&"LineEdit",font_color_placeholder)
 	change_theme_color(&"font_color",&"PopupMenu",font_color)
 	change_theme_color(&"font_disabled_color",&"PopupMenu",font_color_placeholder)
 	change_theme_color(&"font_hover_color",&"PopupMenu",font_color_placeholder)
 	change_theme_color(&"default_color",&"RichTextLabel",font_color)
 	change_theme_color(&"font_color",&"TextEdit",font_color)
+	change_theme_color(&"caret_color",&"TextEdit",font_color)
 	change_theme_color(&"font_placeholder_color",&"TextEdit",font_color_placeholder)
 	
 	# Icon Modulate
@@ -132,7 +140,7 @@ func generate_theme():
 	
 	
 	output_theme.resource_path = ""
-	output_theme.resource_name = "Theme Customized"
+	#output_theme.resource_name = "Theme Customized"
 	
 func change_theme_item(item_name:StringName,type_name:StringName,variable_to_change:StringName,value:Variant):
 	var thing_to_change:Resource = output_theme.get_theme_item(Theme.DATA_TYPE_STYLEBOX,item_name,type_name)
