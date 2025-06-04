@@ -4,13 +4,24 @@ class_name PastebinNetworkBackend
 # signals
 signal paste_complete
 signal send_prompt(content:String)
+signal settings_changed
 
 enum NewPasteAlgorithms {DECIMAL, HEXADECIMAL,ALPHABET,BASE64,WORD_BASED}
-@export var paste_name_algorithm:NewPasteAlgorithms
-@export_range(3,10) var paste_name_length:int = 5
+@export var paste_name_algorithm:NewPasteAlgorithms:
+	set(new_val):
+		paste_name_algorithm = new_val
+		settings_changed.emit()
+@export_range(3,10) var paste_name_length:int = 5:
+	set(new_val):
+		paste_name_length = new_val
+		settings_changed.emit()
+		
+func _ready() -> void:
+	paste_name_length = SaveData.ram_save["paste_name_length"]
+	paste_name_algorithm = SaveData.ram_save["paste_name_algorithm"]
 
 var cached_content:String
-var disallowed_names:Array[String] = []
+#var disallowed_names:Array[String] = []
 var custom_paste_name:String
 var is_link:bool
 func create_new_paste(content:String):
@@ -63,7 +74,7 @@ func _on_request_completed(_result, _response_code, _headers, body):
 		send_prompt.emit(response)
 		if response.keys().has("error"):
 			if response.error == "File exists!": #Retry with a different randomization.
-				disallowed_names.append(response.filename)
+				#disallowed_names.append(response.filename)
 				create_new_paste(cached_content)
 	else:
 		send_prompt.emit({"code":-1})

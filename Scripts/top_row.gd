@@ -1,5 +1,7 @@
 extends HBoxContainer
 
+signal value_selected
+
 @export var custom_name_bar:LineEdit
 @export var name_presets_bar:OptionButton
 @export var name_length_bar:SpinBox
@@ -17,24 +19,27 @@ var current_name_type_value:
 			NameTypes.BASE64: return 64
 			NameTypes.WORD_BASED: return FileAccess.open("res://Misc/words.txt",FileAccess.READ).get_as_text().split("\n").size()-1
 
-#func _ready() -> void:
-	#calculate_estimated_uses()
+func _ready() -> void:
+	_refresh_all()
+
+func _refresh_all():
+	name_presets_bar.selected = %Backend.paste_name_algorithm
+	name_length_bar.value = %Backend.paste_name_length
 
 func _on_name_presets_item_selected(index: int) -> void:
 	current_name_type = index as NameTypes
 	%Backend.paste_name_algorithm = current_name_type
+	SaveData.ram_save["paste_name_algorithm"] = index
+	SaveData.save()
 	#calculate_estimated_uses()
 
 func _on_name_length_value_changed(value: float) -> void:
 	backend_name_length = int(value)
 	%Backend.paste_name_length = int(value)
-	#calculate_estimated_uses()
+	SaveData.ram_save["paste_name_length"] = int(value)
+	SaveData.save()
 
 func _on_custom_name_text_changed(new_text: String) -> void:
 	if new_text != "":
 		#estimated_use_bar.text = "Using a custom name"
 		%Backend.custom_paste_name = new_text
-
-#func calculate_estimated_uses() -> void:
-	#var combination_count = current_name_type_value ** backend_name_length
-	#estimated_use_bar.text = "Max pastes : %s"%[(func(): if combination_count > 999999999: return "999999999+" else: return combination_count).call()]

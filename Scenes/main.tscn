@@ -249,6 +249,7 @@ radio_toggled = ExtResource("8_1w6v2")
 radio_untoggled = ExtResource("9_ueoa1")
 
 [connection signal="send_prompt" from="Main UI/Backend" to="Panels Margin/Panel" method="set_main_content"]
+[connection signal="settings_changed" from="Main UI/Backend" to="." method="set_save_values"]
 [connection signal="request_completed" from="Main UI/Backend/HTTPRequest" to="Main UI/Backend" method="_on_request_completed"]
 [connection signal="text_changed" from="Main UI/Main Sorter/Top Row/Custom Name" to="Main UI/Main Sorter/Top Row" method="_on_custom_name_text_changed"]
 [connection signal="item_selected" from="Main UI/Main Sorter/Top Row/Name Presets" to="Main UI/Main Sorter/Top Row" method="_on_name_presets_item_selected"]
