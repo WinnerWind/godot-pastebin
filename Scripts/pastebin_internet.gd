@@ -31,21 +31,21 @@ func create_new_paste(content:String):
 			NewPasteAlgorithms.DECIMAL:
 				#Returns random number between 1 and largest possible pastenamelength digit number
 				var max_possible_number = (10**(paste_name_length)) - 1
-				var random_number = randi_range(1,max_possible_number)
+				var random_number = randi_range(10*3,max_possible_number) #paste must be 3chr long
 				paste_name = str(random_number)
 			NewPasteAlgorithms.HEXADECIMAL:
-				var max_possible_number = (10**(paste_name_length)) - 1
-				var random_number = randi_range(1,max_possible_number)
+				var max_possible_number = (16**(paste_name_length)) - 1
+				var random_number = randi_range(16*3,max_possible_number) #paste must be at least 16 characters long.
 				paste_name = "%x"%random_number
 			NewPasteAlgorithms.ALPHABET:
 				# 26 cause alphabet
 				var max_possible_number = (26**(paste_name_length)) - 1
-				var random_number = randi_range(1,max_possible_number)
+				var random_number = randi_range(26*3,max_possible_number) #The paste must be at least 3 characters.
 				paste_name = get_alphabet_from_number(random_number)
 			NewPasteAlgorithms.BASE64:
 				# you get the drill
 				var max_possible_number = (64**(paste_name_length)) - 1
-				var random_number = randi_range(1,max_possible_number)
+				var random_number = randi_range(64*3,max_possible_number)
 				paste_name = get_base64_from_number(random_number)
 			NewPasteAlgorithms.WORD_BASED:
 				paste_name += get_random_word()
@@ -83,11 +83,13 @@ func _on_request_completed(_result, _response_code, _headers, body):
 
 #region Helper Functions
 func get_alphabet_from_number(number:int) -> String:
+	var alphabet = "abcdefghijklmnopqrstuvwxyz"
 	var result := ""
+	if number == 0:
+		return alphabet[0]
 	while number > 0:
-		number -= 1  # Adjust for 1-based inumberdexinumberg
-		var remainumberder := number % 26
-		result = char(65 + remainumberder) + result  # 65 is ASCII for 'A'
+		var remainder = number % 26
+		result = alphabet[remainder] + result
 		number = number / 26
 	return result.to_lower()
 

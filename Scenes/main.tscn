@@ -1355,10 +1355,10 @@ popup/item_0/text = "Decimals"
 popup/item_0/id = 0
 popup/item_1/text = "Hexadecimals"
 popup/item_1/id = 1
-popup/item_2/text = "Base64"
-popup/item_2/id = 2
-popup/item_3/text = "Alphabets"
-popup/item_3/id = 4
+popup/item_2/text = "Alphabets"
+popup/item_2/id = 4
+popup/item_3/text = "Base64"
+popup/item_3/id = 2
 popup/item_4/text = "Words"
 popup/item_4/id = 3
 
