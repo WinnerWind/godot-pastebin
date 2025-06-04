@@ -12,6 +12,7 @@ enum NewPasteAlgorithms {DECIMAL, HEXADECIMAL,ALPHABET,BASE64,WORD_BASED}
 var cached_content:String
 var disallowed_names:Array[String] = []
 var custom_paste_name:String
+var is_link:bool
 func create_new_paste(content:String):
 	cached_content = content
 	var paste_name:String = ""
@@ -49,7 +50,7 @@ func create_new_paste(content:String):
 
 func send_file(content:String,filename:String):
 	var url = "http://api.winnerwind.in/pastebin" #Replace this when necessary.
-	var body = {"content": content, "filename":filename}
+	var body = {"content": content, "filename":filename, "is_link":is_link}
 	var headers = ["Content-Type: application/json"]
 	var err = $HTTPRequest.request(url,headers,HTTPClient.METHOD_POST,JSON.stringify(body))
 	if err != OK:
@@ -94,4 +95,7 @@ func get_random_word():
 	var words:Array = Array(file.get_as_text().split("\n")).filter(func(t): return t)
 	return words.pick_random()
 #endregion
+	
+func _set_link_shortener_mode(value:bool):
+	is_link = value
 	

@@ -1,4 +1,4 @@
-[gd_scene load_steps=83 format=4 uid="uid://cnqyjk87iobqe"]
+[gd_scene load_steps=84 format=4 uid="uid://cnqyjk87iobqe"]
 
 [ext_resource type="Script" uid="uid://s6ylg6vjm5ue" path="res://Scripts/main_ui.gd" id="1_bo1nx"]
 [ext_resource type="Theme" uid="uid://colchl8clxybo" path="res://Misc/Themes/gruvvy.tres" id="1_kry3j"]
@@ -20,6 +20,7 @@
 [ext_resource type="Texture2D" uid="uid://bu2b3wv3tnri4" path="res://Misc/Icons/radio_uncheck.svg" id="9_ueoa1"]
 [ext_resource type="Texture2D" uid="uid://c78mg173uqr5" path="res://Misc/Icons/down.svg" id="10_6vcvc"]
 [ext_resource type="Texture2D" uid="uid://d2rud5leilwkd" path="res://Misc/Icons/up.svg" id="11_7k868"]
+[ext_resource type="Texture2D" uid="uid://bua8fpeyf4xjn" path="res://Misc/Icons/swap.svg" id="12_3pmx8"]
 [ext_resource type="Script" uid="uid://c8b1ng858y34s" path="res://Scripts/theme_generator.gd" id="12_6iyac"]
 [ext_resource type="FontFile" uid="uid://jcl3sqxkhfwh" path="res://Misc/Fonts/VictorMono-Bold.ttf" id="13_fdnlq"]
 [ext_resource type="Theme" uid="uid://b5xb5nuh4htn1" path="res://Misc/Themes/catppuccin.tres" id="22_ee4r6"]
@@ -1555,6 +1556,16 @@ layout_mode = 2
 text = "theme"
 icon = ExtResource("7_ynf5e")
 
+[node name="URL Toggle" type="Button" parent="Main UI/Main Sorter/Middle Row"]
+layout_mode = 2
+toggle_mode = true
+text = "Mode Toggle"
+icon = ExtResource("12_3pmx8")
+
+[node name="Link Shorten Status" type="Label" parent="Main UI/Main Sorter/Middle Row"]
+layout_mode = 2
+text = "Pasting text"
+
 [node name="Paste Content Entry" type="TextEdit" parent="Main UI/Main Sorter"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -1565,6 +1576,7 @@ layout_mode = 2
 text = "Submit"
 
 [node name="Panels Margin" type="MarginContainer" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1687,7 +1699,10 @@ radio_untoggled = ExtResource("9_ueoa1")
 [connection signal="text_changed" from="Main UI/Main Sorter/Top Row/Custom Name" to="Main UI/Main Sorter/Top Row" method="_on_custom_name_text_changed"]
 [connection signal="item_selected" from="Main UI/Main Sorter/Top Row/Name Presets" to="Main UI/Main Sorter/Top Row" method="_on_name_presets_item_selected"]
 [connection signal="value_changed" from="Main UI/Main Sorter/Top Row/Name Length" to="Main UI/Main Sorter/Top Row" method="_on_name_length_value_changed"]
+[connection signal="pressed" from="Main UI/Main Sorter/Middle Row/About" to="About Page/Panel" method="show"]
 [connection signal="pressed" from="Main UI/Main Sorter/Middle Row/Theme Toggle" to="Main UI/Main Sorter/Middle Row" method="_on_theme_toggle_pressed"]
+[connection signal="toggled" from="Main UI/Main Sorter/Middle Row/URL Toggle" to="Main UI/Backend" method="_set_link_shortener_mode"]
+[connection signal="toggled" from="Main UI/Main Sorter/Middle Row/URL Toggle" to="Main UI/Main Sorter/Middle Row" method="change_link_toggle_status"]
 [connection signal="pressed" from="Main UI/Main Sorter/Submit Button" to="Main UI/Main Sorter" method="_submit_pressed"]
 [connection signal="meta_clicked" from="Panels Margin/Panel/MarginContainer/Sorter/Content" to="Panels Margin/Panel" method="_on_content_meta_clicked"]
 [connection signal="pressed" from="Panels Margin/Panel/MarginContainer/Sorter/Close" to="Panels Margin/Panel" method="hide"]

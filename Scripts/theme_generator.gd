@@ -110,6 +110,12 @@ func generate_theme():
 	change_theme_color(&"icon_focus_color",&"Button",icon_color)
 	change_theme_color(&"icon_disabled_color",&"Button",icon_color_disabled)
 	
+	change_theme_color(&"icon_normal_color",&"CheckBox",icon_color)
+	change_theme_color(&"icon_hover_color",&"CheckBox",icon_color)
+	change_theme_color(&"icon_hover_pressed_color",&"CheckBox",icon_color)
+	change_theme_color(&"icon_pressed_color",&"CheckBox",icon_color)
+	change_theme_color(&"icon_focus_color",&"CheckBox",icon_color)
+	
 	#change_theme_color(&"down_disabled_icon_modulate",&"SpinBox",icon_color)
 	change_theme_color(&"down_hover_icon_modulate",&"SpinBox",icon_color_spinbox)
 	change_theme_color(&"down_icon_modulate",&"SpinBox",icon_color_spinbox)
@@ -126,6 +132,7 @@ func generate_theme():
 	change_theme_font(&"font",&"PopupMenu",main_font)
 	change_theme_font(&"normal_font",&"RichTextLabel",main_font)
 	change_theme_font(&"font",&"TextEdit",main_font)
+	change_theme_font(&"font",&"Label",main_font)
 	
 	
 	# Icons
@@ -137,6 +144,9 @@ func generate_theme():
 	change_theme_icon(&"radio_checked_disabled",&"PopupMenu",radio_untoggled)
 	change_theme_icon(&"radio_unchecked",&"PopupMenu",radio_untoggled)
 	change_theme_icon(&"radio_unchecked_disabled",&"PopupMenu",radio_untoggled)
+	
+	change_theme_icon(&"checked", &"CheckBox", checkbox_toggled)
+	change_theme_icon(&"unchecked",&"CheckBox",checkbox_untoggled)
 	
 	
 	output_theme.resource_path = ""
