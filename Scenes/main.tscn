@@ -212,7 +212,7 @@ layout_mode = 2
 size_flags_vertical = 3
 bbcode_enabled = true
 text = "[center] HastePasteGaste [/center]
-[center]~~~[/center]
+[center]~~~ v1.0.0 ~~~[/center]
 A cheap, self-hostable pastebin cum link-shortener client made in Godot.
 
 [right]WinnerWind 2025.
