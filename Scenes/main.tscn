@@ -1,4 +1,4 @@
-[gd_scene load_steps=85 format=3 uid="uid://cnqyjk87iobqe"]
+[gd_scene load_steps=41 format=3 uid="uid://cnqyjk87iobqe"]
 
 [ext_resource type="Script" uid="uid://s6ylg6vjm5ue" path="res://Scripts/main_ui.gd" id="1_bo1nx"]
 [ext_resource type="Theme" uid="uid://colchl8clxybo" path="res://Misc/Themes/theme_dark.tres" id="1_kry3j"]
@@ -21,7 +21,6 @@
 [ext_resource type="Texture2D" uid="uid://d2rud5leilwkd" path="res://Misc/Icons/up.svg" id="11_7k868"]
 [ext_resource type="Script" uid="uid://c8b1ng858y34s" path="res://Scripts/theme_generator.gd" id="12_6iyac"]
 [ext_resource type="FontFile" uid="uid://jcl3sqxkhfwh" path="res://Misc/Fonts/VictorMono-Bold.ttf" id="13_fdnlq"]
-[ext_resource type="Theme" uid="uid://beukarelgly6a" path="res://Misc/Themes/theme_baseplate.tres" id="13_jkdf5"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_87yw6"]
 bg_color = Color(0, 0, 0, 1)
@@ -31,7 +30,7 @@ content_margin_left = 15.0
 content_margin_top = 5.0
 content_margin_right = 15.0
 content_margin_bottom = 5.0
-bg_color = Color(0.796243, 0.796243, 0.796243, 1)
+bg_color = Color(1, 1, 1, 1)
 corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
@@ -39,7 +38,7 @@ corner_radius_bottom_left = 20
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nvepq"]
 content_margin_left = 20.0
-bg_color = Color(0.796243, 0.796243, 0.796243, 1)
+bg_color = Color(0.389287, 0.389287, 0.389287, 1)
 corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
@@ -74,7 +73,7 @@ border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(0.201527, 0.201527, 0.201527, 1)
+border_color = Color(1, 1, 1, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qeljc"]
 
@@ -93,7 +92,7 @@ bg_color = Color(0.439049, 0.439049, 0.439049, 1)
 corner_radius_bottom_right = 20
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j2o84"]
-bg_color = Color(0.201527, 0.201527, 0.201527, 1)
+bg_color = Color(1, 1, 1, 1)
 corner_radius_bottom_right = 20
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1br3l"]
@@ -109,7 +108,7 @@ bg_color = Color(0.340339, 0.340339, 0.340339, 1)
 corner_radius_top_right = 20
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tb8mo"]
-bg_color = Color(0.201527, 0.201527, 0.201527, 1)
+bg_color = Color(1, 1, 1, 1)
 corner_radius_top_right = 20
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ttd6h"]
@@ -127,12 +126,21 @@ bg_color = Color(0.439049, 0.439049, 0.439049, 1)
 corner_radius_top_left = 20
 corner_radius_bottom_left = 20
 
-[sub_resource type="Theme" id="Theme_hpc6h"]
+[sub_resource type="Theme" id="Theme_pdsj5"]
 resource_name = "Theme Customized"
 BGPanel/base_type = &"Panel"
 BGPanel/styles/panel = SubResource("StyleBoxFlat_87yw6")
 BoxContainer/constants/separation = 8
-Button/colors/font_color = Color(1, 1, 1, 1)
+Button/colors/font_color = Color(0, 0, 0, 1)
+Button/colors/font_focus_color = Color(1, 1, 1, 1)
+Button/colors/font_hover_color = Color(1, 1, 1, 1)
+Button/colors/font_hover_pressed = Color(1, 1, 1, 1)
+Button/colors/icon_disabled_color = Color(0, 0, 0, 0.462745)
+Button/colors/icon_focus_color = Color(0, 0, 0, 1)
+Button/colors/icon_hover_color = Color(0, 0, 0, 1)
+Button/colors/icon_hover_pressed_color = Color(0, 0, 0, 1)
+Button/colors/icon_normal_color = Color(0, 0, 0, 1)
+Button/colors/icon_pressed_color = Color(0, 0, 0, 1)
 Button/constants/align_to_largest_stylebox = 1
 Button/fonts/font = ExtResource("13_fdnlq")
 Button/styles/focus = SubResource("StyleBoxFlat_bcoy1")
@@ -149,6 +157,7 @@ MarginContainer/constants/margin_bottom = 20
 MarginContainer/constants/margin_left = 20
 MarginContainer/constants/margin_right = 20
 MarginContainer/constants/margin_top = 20
+OptionButton/colors/font_color = Color(1, 1, 1, 1)
 OptionButton/constants/arrow_margin = 10
 OptionButton/icons/arrow = ExtResource("5_3pmx8")
 OptionButton/styles/focus = ExtResource("3_ee4r6")
@@ -176,6 +185,13 @@ RichTextLabel/colors/default_color = Color(1, 1, 1, 1)
 RichTextLabel/fonts/normal_font = ExtResource("13_fdnlq")
 RichTextLabel/styles/background = SubResource("StyleBoxEmpty_qeljc")
 RichTextLabel/styles/focus = SubResource("StyleBoxEmpty_ub0ki")
+SpinBox/colors/down_disabled_icon_modulate = Color(0, 0, 0, 0.462745)
+SpinBox/colors/down_hover_icon_modulate = Color(1, 1, 1, 1)
+SpinBox/colors/down_icon_modulate = Color(1, 1, 1, 1)
+SpinBox/colors/down_pressed_icon_modulate = Color(1, 1, 1, 1)
+SpinBox/colors/up_hover_icon_modulate = Color(1, 1, 1, 1)
+SpinBox/colors/up_icon_modulate = Color(1, 1, 1, 1)
+SpinBox/colors/up_pressed_icon_modulate = Color(0, 0, 0, 0.462745)
 SpinBox/constants/buttons_vertical_separation = 3
 SpinBox/constants/buttons_width = 30
 SpinBox/icons/down = ExtResource("10_6vcvc")
@@ -204,319 +220,6 @@ TextEdit/fonts/font = ExtResource("13_fdnlq")
 TextEdit/styles/focus = ExtResource("4_gt3je")
 TextEdit/styles/normal = ExtResource("4_gt3je")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jkdf5"]
-bg_color = Color(0, 0, 0, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wsu2k"]
-content_margin_left = 15.0
-content_margin_top = 5.0
-content_margin_right = 15.0
-content_margin_bottom = 5.0
-bg_color = Color(0.201527, 0.201527, 0.201527, 1)
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k12tt"]
-content_margin_left = 20.0
-bg_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h1bgf"]
-content_margin_left = 20.0
-bg_color = Color(0.201527, 0.201527, 0.201527, 1)
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b3802"]
-content_margin_left = 15.0
-content_margin_top = 5.0
-content_margin_right = 15.0
-content_margin_bottom = 5.0
-bg_color = Color(0.201527, 0.201527, 0.201527, 1)
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fevyy"]
-content_margin_left = 20.0
-bg_color = Color(0.439049, 0.439049, 0.439049, 1)
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hibaj"]
-content_margin_left = 15.0
-content_margin_top = 5.0
-content_margin_right = 15.0
-content_margin_bottom = 5.0
-bg_color = Color(0.340339, 0.340339, 0.340339, 1)
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_pdsj5"]
-load_path = "res://.godot/imported/dropdown.svg-26a10976eab5fb49e0261359f2e437dd.ctex"
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ee4r6"]
-content_margin_left = 20.0
-bg_color = Color(0.439049, 0.439049, 0.439049, 1)
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gt3je"]
-content_margin_left = 20.0
-bg_color = Color(0.439049, 0.439049, 0.439049, 1)
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3pmx8"]
-content_margin_left = 15.0
-content_margin_top = 5.0
-content_margin_right = 15.0
-content_margin_bottom = 5.0
-bg_color = Color(0.340339, 0.340339, 0.340339, 1)
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u50mg"]
-content_margin_left = 15.0
-content_margin_top = 5.0
-content_margin_right = 15.0
-content_margin_bottom = 5.0
-bg_color = Color(0, 0, 0, 1)
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
-border_color = Color(0.244776, 0.244776, 0.244776, 1)
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_cbgmd"]
-load_path = "res://.godot/imported/checkbox.svg-b3c5c9c6f1e8323c49523c1e570e6d51.ctex"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_1w6v2"]
-load_path = "res://.godot/imported/checkbox_uncheck.svg-e7447fb9b7271b9c51d6c096ca6e0e8f.ctex"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ueoa1"]
-load_path = "res://.godot/imported/radio_check.svg-43701dd20e7cd0038a46f5e0bbb245c1.ctex"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_6vcvc"]
-load_path = "res://.godot/imported/radio_uncheck.svg-d8ef626b20ec4b7b238d32073b742237.ctex"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_7k868"]
-load_path = "res://.godot/imported/radio_uncheck.svg-d8ef626b20ec4b7b238d32073b742237.ctex"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_hpc6h"]
-load_path = "res://.godot/imported/radio_uncheck.svg-d8ef626b20ec4b7b238d32073b742237.ctex"
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kltya"]
-content_margin_left = 20.0
-bg_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 20
-corner_radius_bottom_left = 20
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e08e2"]
-content_margin_left = 20.0
-bg_color = Color(0.439049, 0.439049, 0.439049, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.201527, 0.201527, 0.201527, 1)
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_neg2b"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_r33sp"]
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_hdf80"]
-load_path = "res://.godot/imported/down.svg-afd870d28847b7a0ee3cee846b64d8a2.ctex"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_jwpg7"]
-load_path = "res://.godot/imported/down.svg-afd870d28847b7a0ee3cee846b64d8a2.ctex"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_k2e45"]
-load_path = "res://.godot/imported/down.svg-afd870d28847b7a0ee3cee846b64d8a2.ctex"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_536cc"]
-load_path = "res://.godot/imported/down.svg-afd870d28847b7a0ee3cee846b64d8a2.ctex"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_aqgau"]
-load_path = "res://.godot/imported/up.svg-489adf8b74b43be79c7159ab2c1a3216.ctex"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_8cuat"]
-load_path = "res://.godot/imported/up.svg-489adf8b74b43be79c7159ab2c1a3216.ctex"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_o1aky"]
-load_path = "res://.godot/imported/up.svg-489adf8b74b43be79c7159ab2c1a3216.ctex"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_kwxat"]
-load_path = "res://.godot/imported/up.svg-489adf8b74b43be79c7159ab2c1a3216.ctex"
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aa8k8"]
-bg_color = Color(0.340339, 0.340339, 0.340339, 1)
-corner_radius_bottom_right = 20
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kqrg6"]
-bg_color = Color(0.439049, 0.439049, 0.439049, 1)
-corner_radius_bottom_right = 20
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nwwfm"]
-bg_color = Color(0.439049, 0.439049, 0.439049, 1)
-corner_radius_bottom_right = 20
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s8vy0"]
-bg_color = Color(0.201527, 0.201527, 0.201527, 1)
-corner_radius_bottom_right = 20
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jut3y"]
-bg_color = Color(0.340339, 0.340339, 0.340339, 1)
-corner_radius_top_right = 20
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v2nl5"]
-bg_color = Color(0.340339, 0.340339, 0.340339, 1)
-corner_radius_top_right = 20
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dmskm"]
-bg_color = Color(0.340339, 0.340339, 0.340339, 1)
-corner_radius_top_right = 20
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xdkp6"]
-bg_color = Color(0.201527, 0.201527, 0.201527, 1)
-corner_radius_top_right = 20
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_54nrm"]
-content_margin_left = 20.0
-bg_color = Color(0.340339, 0.340339, 0.340339, 1)
-corner_radius_top_left = 20
-corner_radius_bottom_left = 20
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_55jeb"]
-content_margin_left = 15.0
-content_margin_top = 5.0
-content_margin_right = 15.0
-content_margin_bottom = 5.0
-bg_color = Color(0.439049, 0.439049, 0.439049, 1)
-corner_radius_top_left = 20
-corner_radius_bottom_left = 20
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gsvbx"]
-content_margin_left = 15.0
-content_margin_top = 5.0
-content_margin_right = 15.0
-content_margin_bottom = 5.0
-bg_color = Color(0.340339, 0.340339, 0.340339, 1)
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bv80c"]
-content_margin_left = 15.0
-content_margin_top = 5.0
-content_margin_right = 15.0
-content_margin_bottom = 5.0
-bg_color = Color(0.340339, 0.340339, 0.340339, 1)
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
-
-[sub_resource type="Theme" id="Theme_ptfg5"]
-resource_name = "Theme Customized"
-BGPanel/base_type = &"Panel"
-BGPanel/styles/panel = SubResource("StyleBoxFlat_jkdf5")
-BoxContainer/constants/separation = 8
-Button/colors/font_color = Color(1, 1, 1, 1)
-Button/constants/align_to_largest_stylebox = 1
-Button/fonts/font = ExtResource("13_fdnlq")
-Button/styles/focus = SubResource("StyleBoxFlat_wsu2k")
-Button/styles/hover = SubResource("StyleBoxFlat_k12tt")
-Button/styles/hover_pressed = SubResource("StyleBoxFlat_h1bgf")
-Button/styles/normal = SubResource("StyleBoxFlat_b3802")
-LineEdit/colors/caret_color = Color(1, 1, 1, 1)
-LineEdit/colors/font_color = Color(1, 1, 1, 1)
-LineEdit/colors/font_placeholder_color = Color(0.67069, 0.67069, 0.67069, 1)
-LineEdit/fonts/font = ExtResource("13_fdnlq")
-LineEdit/styles/focus = SubResource("StyleBoxFlat_fevyy")
-LineEdit/styles/normal = SubResource("StyleBoxFlat_hibaj")
-MarginContainer/constants/margin_bottom = 20
-MarginContainer/constants/margin_left = 20
-MarginContainer/constants/margin_right = 20
-MarginContainer/constants/margin_top = 20
-OptionButton/constants/arrow_margin = 10
-OptionButton/icons/arrow = SubResource("CompressedTexture2D_pdsj5")
-OptionButton/styles/focus = SubResource("StyleBoxFlat_ee4r6")
-OptionButton/styles/hover = SubResource("StyleBoxFlat_gt3je")
-OptionButton/styles/normal = SubResource("StyleBoxFlat_3pmx8")
-Panel/styles/panel = SubResource("StyleBoxFlat_u50mg")
-PanelMargins/base_type = &"MarginContainer"
-PanelMargins/constants/margin_bottom = 130
-PanelMargins/constants/margin_left = 150
-PanelMargins/constants/margin_right = 150
-PanelMargins/constants/margin_top = 130
-PopupMenu/colors/font_color = Color(1, 1, 1, 1)
-PopupMenu/colors/font_disabled_color = Color(0.67069, 0.67069, 0.67069, 1)
-PopupMenu/colors/font_hover_color = Color(0.67069, 0.67069, 0.67069, 1)
-PopupMenu/fonts/font = ExtResource("13_fdnlq")
-PopupMenu/icons/checked = SubResource("CompressedTexture2D_cbgmd")
-PopupMenu/icons/checked_disabled = SubResource("CompressedTexture2D_1w6v2")
-PopupMenu/icons/radio_checked = SubResource("CompressedTexture2D_ueoa1")
-PopupMenu/icons/radio_checked_disabled = SubResource("CompressedTexture2D_6vcvc")
-PopupMenu/icons/radio_unchecked = SubResource("CompressedTexture2D_7k868")
-PopupMenu/icons/radio_unchecked_disabled = SubResource("CompressedTexture2D_hpc6h")
-PopupMenu/styles/hover = SubResource("StyleBoxFlat_kltya")
-PopupMenu/styles/panel = SubResource("StyleBoxFlat_e08e2")
-RichTextLabel/colors/default_color = Color(1, 1, 1, 1)
-RichTextLabel/fonts/normal_font = ExtResource("13_fdnlq")
-RichTextLabel/styles/background = SubResource("StyleBoxEmpty_neg2b")
-RichTextLabel/styles/focus = SubResource("StyleBoxEmpty_r33sp")
-SpinBox/constants/buttons_vertical_separation = 3
-SpinBox/constants/buttons_width = 30
-SpinBox/icons/down = SubResource("CompressedTexture2D_hdf80")
-SpinBox/icons/down_disabled = SubResource("CompressedTexture2D_jwpg7")
-SpinBox/icons/down_hover = SubResource("CompressedTexture2D_k2e45")
-SpinBox/icons/down_pressed = SubResource("CompressedTexture2D_536cc")
-SpinBox/icons/up = SubResource("CompressedTexture2D_aqgau")
-SpinBox/icons/up_disabled = SubResource("CompressedTexture2D_8cuat")
-SpinBox/icons/up_hover = SubResource("CompressedTexture2D_o1aky")
-SpinBox/icons/up_pressed = SubResource("CompressedTexture2D_kwxat")
-SpinBox/styles/down_background = SubResource("StyleBoxFlat_aa8k8")
-SpinBox/styles/down_background_disabled = SubResource("StyleBoxFlat_kqrg6")
-SpinBox/styles/down_background_hovered = SubResource("StyleBoxFlat_nwwfm")
-SpinBox/styles/down_background_pressed = SubResource("StyleBoxFlat_s8vy0")
-SpinBox/styles/up_background = SubResource("StyleBoxFlat_jut3y")
-SpinBox/styles/up_background_disabled = SubResource("StyleBoxFlat_v2nl5")
-SpinBox/styles/up_background_hovered = SubResource("StyleBoxFlat_dmskm")
-SpinBox/styles/up_background_pressed = SubResource("StyleBoxFlat_xdkp6")
-SpinBoxInnerLineEdit/base_type = &"LineEdit"
-SpinBoxInnerLineEdit/styles/focus = SubResource("StyleBoxFlat_54nrm")
-SpinBoxInnerLineEdit/styles/normal = SubResource("StyleBoxFlat_55jeb")
-TextEdit/colors/caret_color = Color(0.921569, 0.858824, 0.698039, 1)
-TextEdit/colors/font_color = Color(1, 1, 1, 1)
-TextEdit/colors/font_placeholder_color = Color(1, 1, 1, 1)
-TextEdit/fonts/font = ExtResource("13_fdnlq")
-TextEdit/styles/focus = SubResource("StyleBoxFlat_gsvbx")
-TextEdit/styles/normal = SubResource("StyleBoxFlat_bv80c")
-
 [node name="BG" type="Panel"]
 anchors_preset = 15
 anchor_right = 1.0
@@ -525,8 +228,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_type_variation = &"BGPanel"
 script = ExtResource("2_hptm8")
-light_theme = SubResource("Theme_hpc6h")
-dark_theme = ExtResource("1_kry3j")
+themes = Array[Theme]([SubResource("Theme_pdsj5"), ExtResource("1_kry3j")])
 
 [node name="Main UI" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -709,15 +411,29 @@ text = "Close."
 
 [node name="Theme Generator" type="Node" parent="."]
 script = ExtResource("12_6iyac")
-theme_baseplate = ExtResource("13_jkdf5")
-output_theme = SubResource("Theme_ptfg5")
-accent_color = Color(0.201527, 0.201527, 0.201527, 1)
+theme_baseplate = SubResource("Theme_pdsj5")
+output_theme = SubResource("Theme_pdsj5")
+accent_color = Color(1, 1, 1, 1)
+accent_color_focused = Color(0.389287, 0.389287, 0.389287, 1)
 fg_color = Color(0.340339, 0.340339, 0.340339, 1)
 fg_focus_color = Color(0.439049, 0.439049, 0.439049, 1)
 popup_panel_border_color = Color(0.244776, 0.244776, 0.244776, 1)
 font_color = Color(1, 1, 1, 1)
+font_color_hover = Color(1, 1, 1, 1)
 font_color_placeholder = Color(0.67069, 0.67069, 0.67069, 1)
+icon_color_spinbox = Color(1, 1, 1, 1)
+icon_color_disabled = Color(0, 0, 0, 0.462745)
 main_font = ExtResource("13_fdnlq")
+checkbox_toggled = ExtResource("6_u50mg")
+checkbox_untoggled = ExtResource("7_cbgmd")
+down_icon = ExtResource("10_6vcvc")
+up_icon = ExtResource("11_7k868")
+dropdown_icon = ExtResource("5_3pmx8")
+folder_icon = ExtResource("5_21xkr")
+info_icon = ExtResource("6_344ge")
+palette_icon = ExtResource("7_ynf5e")
+radio_toggled = ExtResource("8_1w6v2")
+radio_untoggled = ExtResource("9_ueoa1")
 
 [connection signal="send_prompt" from="Main UI/Backend" to="Panels Margin/Panel" method="set_main_content"]
 [connection signal="request_completed" from="Main UI/Backend/HTTPRequest" to="Main UI/Backend" method="_on_request_completed"]

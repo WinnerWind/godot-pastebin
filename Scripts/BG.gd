@@ -1,11 +1,12 @@
 extends Panel
 class_name BG
 
-@export var light_theme:Theme
-@export var dark_theme:Theme
-
+@export var themes:Array[Theme]
+@export var current_theme:int:
+	set(new_num):
+		if new_num > themes.size()-1:
+			new_num = 0
+		current_theme = new_num
 func _on_theme_toggle():
-	if theme == dark_theme:
-		theme = light_theme
-	else:
-		theme = dark_theme
+	current_theme+=1
+	theme = themes[current_theme]
