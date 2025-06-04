@@ -92,7 +92,7 @@ func generate_theme():
 	change_theme_color(&"font_hover_color",&"PopupMenu",font_color_placeholder)
 	change_theme_color(&"default_color",&"RichTextLabel",font_color)
 	change_theme_color(&"font_color",&"TextEdit",font_color)
-	change_theme_color(&"font_placeholder_color",&"TextEdit",font_color)
+	change_theme_color(&"font_placeholder_color",&"TextEdit",font_color_placeholder)
 	
 	# Icon Modulate
 	change_theme_color(&"icon_pressed_color",&"Button",icon_color)
