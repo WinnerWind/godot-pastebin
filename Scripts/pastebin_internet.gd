@@ -3,7 +3,6 @@ class_name PastebinNetworkBackend
 
 # signals
 signal paste_complete
-signal out_of_filenames
 signal send_prompt(content:String)
 
 enum NewPasteAlgorithms {DECIMAL, HEXADECIMAL,ALPHABET,BASE64,WORD_BASED}
@@ -56,7 +55,7 @@ func send_file(content:String,filename:String):
 	if err != OK:
 		print("Request error: ", err)
 
-func _on_request_completed(_result, _response_code, headers, body):
+func _on_request_completed(_result, _response_code, _headers, body):
 	var response = JSON.parse_string(body.get_string_from_utf8())
 	print("Server response: "+str(response))
 	if not response == null:
