@@ -1,7 +1,6 @@
 extends Node
 
-var save_path = "user://savedata.save" #Path of savedata
-var save_backup_path = "user://savedata.savebak"
+var save_path = "user://user.prefs" #Path of savedata
 
 #Also acts as default save values.
 var ram_save = {
@@ -16,11 +15,6 @@ var ram_save = {
 var disk_save #SaveData from the system, on disk
 func save():
 	# Function to copy ram_save into disk_save
-	#Make a backup
-	if FileAccess.file_exists(save_path):
-		var dir = DirAccess.open("user://")
-		dir.copy(save_path,save_backup_path)
-	
 	disk_save = FileAccess.open(save_path,FileAccess.WRITE)
 	disk_save.store_var(ram_save)
 	disk_save.close()
