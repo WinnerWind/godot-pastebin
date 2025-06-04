@@ -32,6 +32,7 @@ If you want maximum compatibility with the client without having to rescript it:
 4. Create folder `secrets` in the project root.
 5. Create file `url.txt` in your `secrets` folder.
 6. Put the URL as it is in that file.
+7. Export for web, for desktop, for whatever.
 
 ### Serving Pastes
 Simply host the directory in which all your pastes are outputted. An example way of doing this using NGINX is:
