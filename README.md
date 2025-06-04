@@ -1,5 +1,9 @@
 # HastePasteGaste
-A simple local pastebin cum link-shortener client made in Godot. Dead simple.
+A simple local pastebin cum link-shortener client made in Godot. Dead simple. Almost fatally so.
+![image](https://github.com/user-attachments/assets/842c7a11-d58f-46e1-96b1-8372af5ff9dd)
+![image](https://github.com/user-attachments/assets/73e29aa5-c17b-4c5d-b1cd-055a01a44bde)
+![image](https://github.com/user-attachments/assets/3004e803-e4c0-4296-9a8d-34830ca39e59)
+
 
 ## Usage
 ### Daily Use
